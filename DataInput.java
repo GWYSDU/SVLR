@@ -16,15 +16,15 @@ class parse_mapped_data implements Serializable {
     private String Read;
     private long RefStartC;
     private long ReadStartC;
-    private long RefAlignLen;//参考序列的比对长度
-    private long ReadAlignLen;//每一条测序序列片段的比对长度
+    private long RefAlignLen;
+    private long ReadAlignLen;
     private long RefEndC;
     private long ReadEndC;
     private String RefStrand;
     private String ReadStrand;
-    private long ReadLen;//每一条测序序列的总长度
-    private String RefSeq;//参考序列比对的序列结果
-    private String ReadSeq;//每一条测序序列片段比对的序列结果
+    private long ReadLen;
+    private String RefSeq;
+    private String ReadSeq;
     private double Identity;
     private String CIGAR;
 //    private double confidence_level=0;
@@ -240,11 +240,6 @@ public class DataInput {
         if(path_format.equals("maf")){
 
             alignDataInput_maf(path,Parameter_Setting);
-
-        }
-        else if(path_format.equals("bam")){
-
-            alignDataInput_bam(path,Parameter_Setting);
 
         }
         else if(path_format.equals("sam")){
@@ -524,12 +519,6 @@ public class DataInput {
             System.out.println("第"+String.valueOf(j++)+"条read处理完毕");
 
         }
-
-    }
-
-    private static void alignDataInput_bam(String path, Parameter_Setting Parameter_Setting) {
-
-
 
     }
 
