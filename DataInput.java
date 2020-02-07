@@ -232,9 +232,9 @@ public class DataInput {
         Global.TranslocationBreakpoint_signatures=new LinkedList <>();
         Global.Potential_Trans_Inters_signatures=new LinkedList <>();
         Parameter_Setting Parameter_Setting=new Parameter_Setting();
-        Scanner datainput=new Scanner(System.in);
+//        Scanner datainput=new Scanner(System.in);
         long startTime = System.currentTimeMillis();
-        String path=datainput.next();
+        String path=args[0];
         String path_split[]=path.split("\\.");
         String path_format=path_split[path_split.length-1];
         if(path_format.equals("maf")){
@@ -275,10 +275,16 @@ public class DataInput {
         long            deletioncount;
         long            alignlen;
         double          identity;
-        parse_mapped_data AlignData;
+        parse_mapped_data AlignData[]=new parse_mapped_data[500];
+        for(int i=0;i<500;i++){
+
+            AlignData[i]=new parse_mapped_data();
+
+        }
         long base_best_score_sum=0;
-        int j=0;
+//        int j=0;
         int count = 1;
+        int index=0;
 
         while((MAFAlignline = MAFbufferedReader.readLine()) != null){
 
@@ -318,34 +324,33 @@ public class DataInput {
             mismatchcount = 0;
             insertioncount = 0;
             deletioncount = 0;
-            AlignData = new parse_mapped_data();
             charTest = MAFAlignline.split("\\s+");
 
             if(MAFAlignline.length() != 0&&!(charTest[0].equals("#"))){
 
                 Aline = MAFAlignline.trim().replaceAll("="," ");
                 midStore = Aline.split("\\s+");
-                AlignData.setScore(Long.parseLong(midStore[2]));
-                AlignData.setMismap(Double.parseDouble(midStore[4]));
+                AlignData[index].setScore(Long.parseLong(midStore[2]));
+                AlignData[index].setMismap(Double.parseDouble(midStore[4]));
                 Sline1  =   MAFbufferedReader.readLine();
                 midStore=   Sline1.split("\\s+");
-                AlignData.setRef(midStore[1]);
-                AlignData.setRefStartC(Long.parseLong(midStore[2]));
-                AlignData.setRefAlignLen(Long.parseLong(midStore[3]));
-                refendc =   AlignData.getRefStartC()+AlignData.getRefAlignLen()-1;
-                AlignData.setRefEndC(refendc);
-                AlignData.setRefStrand(midStore[4]);
-                AlignData.setRefSeq(midStore[6].toUpperCase());
+                AlignData[index].setRef(midStore[1]);
+                AlignData[index].setRefStartC(Long.parseLong(midStore[2]));
+                AlignData[index].setRefAlignLen(Long.parseLong(midStore[3]));
+                refendc =   AlignData[index].getRefStartC()+AlignData[index].getRefAlignLen()-1;
+                AlignData[index].setRefEndC(refendc);
+                AlignData[index].setRefStrand(midStore[4]);
+                AlignData[index].setRefSeq(midStore[6].toUpperCase());
                 Sline2  =   MAFbufferedReader.readLine();
                 midStore=   Sline2.split("\\s+");
-                AlignData.setRead(midStore[1]);
-                AlignData.setReadStartC(Long.parseLong(midStore[2]));
-                AlignData.setReadAlignLen(Long.parseLong(midStore[3]));
-                readendc=   AlignData.getReadStartC()+AlignData.getReadAlignLen()-1;
-                AlignData.setReadEndC(readendc);
-                AlignData.setReadStrand(midStore[4]);
-                AlignData.setReadLen(Long.parseLong(midStore[5]));
-                AlignData.setReadSeq(midStore[6].toUpperCase());
+                AlignData[index].setRead(midStore[1]);
+                AlignData[index].setReadStartC(Long.parseLong(midStore[2]));
+                AlignData[index].setReadAlignLen(Long.parseLong(midStore[3]));
+                readendc=   AlignData[index].getReadStartC()+AlignData[index].getReadAlignLen()-1;
+                AlignData[index].setReadEndC(readendc);
+                AlignData[index].setReadStrand(midStore[4]);
+                AlignData[index].setReadLen(Long.parseLong(midStore[5]));
+                AlignData[index].setReadSeq(midStore[6].toUpperCase());
                 MAFbufferedReader.readLine();
                 MAFbufferedReader.readLine();
 
@@ -354,10 +359,10 @@ public class DataInput {
                 String currtype=" ";
                 long curtypecount=0;
 
-                for (int i=0;i<AlignData.getRefSeq().length()-1&&i<AlignData.getReadSeq().length()-1;i++){
+                for (int i=0;i<AlignData[index].getRefSeq().length()-1&&i<AlignData[index].getReadSeq().length()-1;i++){
 
-                    String Refbase=AlignData.getRefSeq().substring(i,i+1);
-                    String querybase=AlignData.getReadSeq().substring(i,i+1);
+                    String Refbase=AlignData[index].getRefSeq().substring(i,i+1);
+                    String querybase=AlignData[index].getReadSeq().substring(i,i+1);
 
                     if(Refbase.equals("-")){
 
@@ -424,29 +429,29 @@ public class DataInput {
 
                 alignlen    =  matchcount+mismatchcount+insertioncount+deletioncount;
                 identity    = (matchcount * 100.0) / alignlen;
-                AlignData.setIdentity(identity);
+                AlignData[index].setIdentity(identity);
                 CIGAR=CIGAR+curtypecount+type;
                 String  CIGARStore[]=CIGAR.split(" ");
-                AlignData.setCIGAR(CIGARStore[1].trim());
+                AlignData[index].setCIGAR(CIGARStore[1].trim());
 
-                if(AlignData.getReadStrand().equals("-")){
+                if(AlignData[index].getReadStrand().equals("-")){
 
-                    AlignData.setRefStrand("-");
-                    AlignData.setReadStrand("+");
-                    AlignData.setReadStartC(AlignData.getReadLen()-1-AlignData.getReadEndC());
-                    AlignData.setReadEndC(AlignData.getReadStartC()+AlignData.getReadAlignLen()-1);
+                    AlignData[index].setRefStrand("-");
+                    AlignData[index].setReadStrand("+");
+                    AlignData[index].setReadStartC(AlignData[index].getReadLen()-1-AlignData[index].getReadEndC());
+                    AlignData[index].setReadEndC(AlignData[index].getReadStartC()+AlignData[index].getReadAlignLen()-1);
 //                    AlignData.setReadSeq(new StringBuffer(AlignData.getReadSeq()).reverse().toString().replaceAll("A","B").replaceAll("T","A").replaceAll("B","T").replaceAll("C","B").replaceAll("G","C").replaceAll("B","G"));
 
                 }
 
-                AlignData.setReadSeq(null);
-                AlignData.setRefSeq(null);
+                AlignData[index].setReadSeq(null);
+                AlignData[index].setRefSeq(null);
 
-                if(AlignData.getIdentity()>=filterthreshold.getMinIdentity()){
+                if(AlignData[index].getIdentity()>=filterthreshold.getMinIdentity()){
 
                     if(currentReadStore.size()!=0){
 
-                        if(currentRead!=null&&!currentRead.equals(AlignData.getRead())){
+                        if(currentRead!=null&&!currentRead.equals(AlignData[index].getRead())){
 
                             if(currentReadStore.size()>7){
 
@@ -467,19 +472,25 @@ public class DataInput {
 //                            }
 
                             SV_Signature_Distinguish.analyze_read_segments(currentReadStore, Parameter_Setting);
-                            System.out.println("第"+String.valueOf(j++)+"条read处理完毕");
-                            currentRead=AlignData.getRead();
+//                            System.out.println("第"+String.valueOf(j++)+"条read处理完毕");
+                            currentRead=AlignData[index].getRead();
                             currentReadStore=new LinkedList <>();
+//                            AlignData[0]=AlignData[index];
+//                            AlignData[0] = new parse_mapped_data(AlignData[index]);
+                            copy(AlignData[0],AlignData[index]);
+                            index=0;
 
                         }
 
-                        currentReadStore.add(AlignData);
+                        currentReadStore.add(AlignData[index]);
+                        index++;
 
                     }
                     else{
 
-                        currentRead=AlignData.getRead();
-                        currentReadStore.add(AlignData);
+                        currentRead=AlignData[index].getRead();
+                        currentReadStore.add(AlignData[index]);
+                        index++;
 
                     }
 
@@ -516,9 +527,29 @@ public class DataInput {
 //            }
 
             SV_Signature_Distinguish.analyze_read_segments(currentReadStore, Parameter_Setting);
-            System.out.println("第"+String.valueOf(j++)+"条read处理完毕");
+//            System.out.println("第"+String.valueOf(j++)+"条read处理完毕");
 
         }
+
+    }
+
+    private static void copy(parse_mapped_data copy, parse_mapped_data source) {
+
+        copy.setScore(source.getScore());
+        copy.setMismap(source.getMismap());
+        copy.setRef(source.getRef());
+        copy.setRefStartC(source.getRefStartC());
+        copy.setRefAlignLen(source.getRefAlignLen());
+        copy.setRefEndC(source.getRefEndC());
+        copy.setRefStrand(source.getRefStrand());
+        copy.setRefSeq(source.getRefSeq());
+        copy.setRead(source.getRead());
+        copy.setReadStartC(source.getReadStartC());
+        copy.setReadAlignLen(source.getReadAlignLen());
+        copy.setReadEndC(source.getReadEndC());
+        copy.setReadStrand(source.getReadStrand());
+        copy.setReadLen(source.getReadLen());
+        copy.setReadSeq(source.getReadSeq());
 
     }
 
@@ -570,7 +601,7 @@ public class DataInput {
                     }
                     else if('0'<=cigar.charAt(i)&&cigar.charAt(i)<='9'){
 
-                         continue;
+                        continue;
 
                     }
                     else if(cigar.charAt(i)=='S'&&i!=length-1){
