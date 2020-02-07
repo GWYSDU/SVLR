@@ -10,7 +10,9 @@ If you have any susgetions or problems when you apply SVLR to detect structure v
 
 How to build SVLR?
 ==================
-==```wget https://codeload.github.com/GWYSDU/SVLR/zip/master     
+```
+wget https://codeload.github.com/GWYSDU/SVLR/zip/master     
 unzip SVLR-master.zip  
 cd /SVLR-master  
-javac ComputeOverlap.java DataInput.java getCandidatemetrics.java Global.java MaximalCliquesWithPivot.java Parameter_Setting.java SV_Candidate.java SV_Candidate_Filter.java SVsignature.java SV_Signature_Cluster.java SV_Signature_Distinguish.java T_I_C_SVClusters_Distinguish.java```===
+javac ComputeOverlap.java DataInput.java getCandidatemetrics.java Global.java MaximalCliquesWithPivot.java Parameter_Setting.java SV_Candidate.java SV_Candidate_Filter.java SVsignature.java SV_Signature_Cluster.java SV_Signature_Distinguish.java T_I_C_SVClusters_Distinguish.java
+```
