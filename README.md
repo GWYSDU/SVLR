@@ -14,5 +14,5 @@ How to build SVLR?
 wget https://github.com/GWYSDU/SVLR/archive/master.zip    
 unzip master.zip  
 cd SVLR-master  
-javac ComputeOverlap.java DataInput.java getCandidatemetrics.java Global.java MaximalCliquesWithPivot.java Parameter_Setting.java SV_Candidate.java SV_Candidate_Filter.java SVsignature.java SV_Signature_Cluster.java SV_Signature_Distinguish.java T_I_C_SVClusters_Distinguish.java
+javac ComputeOverlap.java DataInput.java Global.java MaximalCliquesWithPivot.java Parameter_Setting.java SV_Candidate.java SV_Candidate_Filter.java SVsignature.java SV_Signature_Cluster.java SV_Signature_Distinguish.java T_I_C_SVClusters_Distinguish.java
 ```
