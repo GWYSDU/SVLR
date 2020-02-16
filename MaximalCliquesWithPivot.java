@@ -347,26 +347,6 @@ public class MaximalCliquesWithPivot {
 
         }
 
-//        while (P.size()>0){
-//
-//            Vertex  V=getMinDegreeVertex(P);
-//            R.add(V);
-//            Bron_kerboshWithPivot(R,intersect(P,getNbrs(V)),intersect(X,getNbrs(V)),pre+"\t");
-//            R.remove(V);
-//            P.remove(V);
-//
-//            ArrayList<Vertex> v_nbrs=V.getNbrs();
-//            int nbrs_num=v_nbrs.size();
-//
-//            for(int i=0;i<nbrs_num;i++){
-//
-//                v_nbrs.get(i).setDegree(v_nbrs.get(i).getDegree()-1);
-//
-//            }
-//
-//            X.add(V);
-//
-//        }
         ArrayList<Vertex>P1=new ArrayList <>(P);
         Vertex u=getMaxDegreeVertex(union(P,X));
         P=removeNbrs(P,u);
@@ -399,24 +379,6 @@ public class MaximalCliquesWithPivot {
     }
 
     private Vertex getMinDegreeVertex(ArrayList<Vertex> union) {
-
-//        int mindegree=union.get(0).degree;
-//        Vertex V=union.get(0);
-//
-//        for(int i=1;i<union.size();i++){
-//
-//            int degree=union.get(i).degree;
-//
-//            if(mindegree>degree){
-//
-//                mindegree=degree;
-//                V=union.get(i);
-//
-//            }
-//
-//        }
-//
-//        return V;
 
         Collections.sort(union);
         return union.get(0);

@@ -79,8 +79,9 @@ class SV_CandidateTranslocation extends SV_Candidate{
     String contig2;
     long destination_start_position_on_ref;
     long destination_end_position_on_ref;
+    String type;
 
-    public SV_CandidateTranslocation( String contig1,long start_position_on_ref,long end_position_on_ref,String contig2,long destination_start_position_on_ref,long destination_end_position_on_ref,double score){
+    public SV_CandidateTranslocation( String contig1,long start_position_on_ref,long end_position_on_ref,String contig2,long destination_start_position_on_ref,long destination_end_position_on_ref,double score,String type){
         super();
         this.start_position_on_ref = start_position_on_ref;
         this.end_position_on_ref = end_position_on_ref;
@@ -89,6 +90,7 @@ class SV_CandidateTranslocation extends SV_Candidate{
         this.destination_start_position_on_ref=destination_start_position_on_ref;
         this.destination_end_position_on_ref=destination_end_position_on_ref;
         this.score=score;
+        this.type=type;
 
     }
 

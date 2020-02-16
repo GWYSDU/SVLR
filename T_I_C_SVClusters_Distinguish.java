@@ -299,34 +299,42 @@ public class T_I_C_SVClusters_Distinguish {
 
                 Collections.sort(source_in_destination,new source_in_destination_Cororder());
                 long coverage_source_in_destination=get_coverage_source_in_destination(source_in_destination);
-                long dis_detination=Math.abs(Potential_Trans_Inters.dest_end-Potential_Trans_Inters.dest_start);
-                long dis_source=Math.abs(Potential_Trans_Inters.source_end-Potential_Trans_Inters.source_start);
+                long dis_detination=Potential_Trans_Inters.dest_end-Potential_Trans_Inters.dest_start;
+                long dis_source=Potential_Trans_Inters.source_end-Potential_Trans_Inters.source_start;
 
-                if((dis_detination-coverage_source_in_destination-dis_source)>=20){
+                if(dis_source>=0&&dis_detination>=0&&dis_detination<100000){
 
-                    candidateTranslocations.add(new SV_CandidateTranslocation(Potential_Trans_Inters.source_contig,Potential_Trans_Inters.source_start,Potential_Trans_Inters.source_end,Potential_Trans_Inters.dest_contig,Potential_Trans_Inters.dest_start,Potential_Trans_Inters.dest_end,Potential_Trans_Inters.score));
+                    if((dis_detination-coverage_source_in_destination-dis_source)>=20){
 
-                }
-                else{
+                        candidateTranslocations.add(new SV_CandidateTranslocation(Potential_Trans_Inters.source_contig,Potential_Trans_Inters.source_start,Potential_Trans_Inters.source_end,Potential_Trans_Inters.dest_contig,Potential_Trans_Inters.dest_start,Potential_Trans_Inters.dest_end,Potential_Trans_Inters.score,"BREP"));
 
-                    candidateInterspersedDuplications.add(new SV_CandidateInterspersedDuplication(Potential_Trans_Inters.source_contig,Potential_Trans_Inters.source_start,Potential_Trans_Inters.source_end,Potential_Trans_Inters.dest_contig,Potential_Trans_Inters.dest_start,Potential_Trans_Inters.dest_end,Potential_Trans_Inters.score,false));
+                    }
+                    else {
+
+                        candidateInterspersedDuplications.add(new SV_CandidateInterspersedDuplication(Potential_Trans_Inters.source_contig,Potential_Trans_Inters.source_start,Potential_Trans_Inters.source_end,Potential_Trans_Inters.dest_contig,Potential_Trans_Inters.dest_start,Potential_Trans_Inters.dest_end,Potential_Trans_Inters.score,false));
+
+                    }
 
                 }
 
             }
             else{
 
-                long dis_detination=Math.abs(Potential_Trans_Inters.dest_end-Potential_Trans_Inters.dest_start);
-                long dis_source=Math.abs(Potential_Trans_Inters.source_end-Potential_Trans_Inters.source_start);
+                long dis_detination=Potential_Trans_Inters.dest_end-Potential_Trans_Inters.dest_start;
+                long dis_source=Potential_Trans_Inters.source_end-Potential_Trans_Inters.source_start;
 
-                if((dis_detination-dis_source)>=20){
+                if(dis_source>=0&&dis_detination>=0&&dis_detination<100000){
 
-                    candidateTranslocations.add(new SV_CandidateTranslocation(Potential_Trans_Inters.source_contig,Potential_Trans_Inters.source_start,Potential_Trans_Inters.source_end,Potential_Trans_Inters.dest_contig,Potential_Trans_Inters.dest_start,Potential_Trans_Inters.dest_end,Potential_Trans_Inters.score));
+                    if((dis_detination-dis_source)>=20){
 
-                }
-                else{
+                        candidateTranslocations.add(new SV_CandidateTranslocation(Potential_Trans_Inters.source_contig,Potential_Trans_Inters.source_start,Potential_Trans_Inters.source_end,Potential_Trans_Inters.dest_contig,Potential_Trans_Inters.dest_start,Potential_Trans_Inters.dest_end,Potential_Trans_Inters.score,"BREP"));
 
-                    candidateInterspersedDuplications.add(new SV_CandidateInterspersedDuplication(Potential_Trans_Inters.source_contig,Potential_Trans_Inters.source_start,Potential_Trans_Inters.source_end,Potential_Trans_Inters.dest_contig,Potential_Trans_Inters.dest_start,Potential_Trans_Inters.dest_end,Potential_Trans_Inters.score,false));
+                    }
+                    else{
+
+                        candidateInterspersedDuplications.add(new SV_CandidateInterspersedDuplication(Potential_Trans_Inters.source_contig,Potential_Trans_Inters.source_start,Potential_Trans_Inters.source_end,Potential_Trans_Inters.dest_contig,Potential_Trans_Inters.dest_start,Potential_Trans_Inters.dest_end,Potential_Trans_Inters.score,false));
+
+                    }
 
                 }
 
