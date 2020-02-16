@@ -22,6 +22,7 @@ public class SV_Candidate_Filter {
         File int_duplication =new File(path+"_interspersedduplications.csv");
         File translocation =new File(path+"_translocations.csv");
         File block_interchange =new File(path+"_blockinterchanges.csv");
+        File block_replacement =new File(path+"_blockreplacements.csv");
 
         PrintStream outputdeletion = new PrintStream(new FileOutputStream(deletion));
         PrintStream outputnovelinsertion = new PrintStream(new FileOutputStream(novelinsertion));
@@ -30,6 +31,8 @@ public class SV_Candidate_Filter {
         PrintStream outputintduplication= new PrintStream(new FileOutputStream(int_duplication));
         PrintStream outputtranslocation= new PrintStream(new FileOutputStream(translocation));
         PrintStream outputblockinterchange= new PrintStream(new FileOutputStream(block_interchange));
+        PrintStream outputblockreplacement= new PrintStream(new FileOutputStream(block_replacement));
+
         int candidateInversions_size=candidateInversions.size();
         outputinversion.println("contig"+"\t"+"start"+"\t"+"end"+"\t"+"score");
         for(int n=0;n<candidateInversions_size;n++){
@@ -550,7 +553,7 @@ public class SV_Candidate_Filter {
                             if(Math.abs(is_cut_paste_destination_start-is_cut_paste_1_source_start)<=50&&Math.abs(is_cut_paste_1_destination_start-is_cut_paste_source_start)<=50){
 
                                 double score=(is_cut_paste_score+is_cut_paste_1_score)/2;
-                                candidateTranslocations.add(new SV_CandidateTranslocation(is_cut_paste_source_contig,is_cut_paste_source_start,is_cut_paste_source_end,is_cut_paste_1_source_contig,is_cut_paste_1_source_start,is_cut_paste_1_source_end,score));
+                                candidateTranslocations.add(new SV_CandidateTranslocation(is_cut_paste_source_contig,is_cut_paste_source_start,is_cut_paste_source_end,is_cut_paste_1_source_contig,is_cut_paste_1_source_start,is_cut_paste_1_source_end,score,"balance"));
                                 candidateInterspersedDuplications.remove(j);
                                 candidateInterspersedDuplications.remove(i);
                                 i--;
@@ -614,14 +617,23 @@ public class SV_Candidate_Filter {
 
             SV_CandidateTranslocation Translocation=candidateTranslocations.get(n);
 
-            if(Translocation.contig1.equals(Translocation.contig2)){
+            if(Translocation.type.equals("BREP")){
 
-                outputblockinterchange.println(Translocation.contig1+"\t"+String.valueOf(Translocation.start_position_on_ref)+"\t"+String.valueOf(Translocation.end_position_on_ref)+"\t"+Translocation.contig2+"\t"+String.valueOf(Translocation.destination_start_position_on_ref)+"\t"+String.valueOf(Translocation.destination_end_position_on_ref)+"\t"+String.valueOf(Translocation.score));
+                outputblockreplacement.println(Translocation.contig1+"\t"+String.valueOf(Translocation.start_position_on_ref)+"\t"+String.valueOf(Translocation.end_position_on_ref)+"\t"+Translocation.contig2+"\t"+String.valueOf(Translocation.destination_start_position_on_ref)+"\t"+String.valueOf(Translocation.destination_end_position_on_ref)+"\t"+String.valueOf(Translocation.score));
 
             }
-            else{
+            else if(Translocation.type.equals("balance")){
 
-                outputtranslocation.println(Translocation.contig1+"\t"+String.valueOf(Translocation.start_position_on_ref)+"\t"+String.valueOf(Translocation.end_position_on_ref)+"\t"+Translocation.contig2+"\t"+String.valueOf(Translocation.destination_start_position_on_ref)+"\t"+String.valueOf(Translocation.destination_end_position_on_ref)+"\t"+String.valueOf(Translocation.score));
+                if(Translocation.contig1.equals(Translocation.contig2)){
+
+                    outputblockinterchange.println(Translocation.contig1+"\t"+String.valueOf(Translocation.start_position_on_ref)+"\t"+String.valueOf(Translocation.end_position_on_ref)+"\t"+Translocation.contig2+"\t"+String.valueOf(Translocation.destination_start_position_on_ref)+"\t"+String.valueOf(Translocation.destination_end_position_on_ref)+"\t"+String.valueOf(Translocation.score));
+
+                }
+                else {
+
+                    outputtranslocation.println(Translocation.contig1+"\t"+String.valueOf(Translocation.start_position_on_ref)+"\t"+String.valueOf(Translocation.end_position_on_ref)+"\t"+Translocation.contig2+"\t"+String.valueOf(Translocation.destination_start_position_on_ref)+"\t"+String.valueOf(Translocation.destination_end_position_on_ref)+"\t"+String.valueOf(Translocation.score));
+
+                }
 
             }
 

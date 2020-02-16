@@ -306,7 +306,7 @@ public class T_I_C_SVClusters_Distinguish {
 
                     if((dis_detination-coverage_source_in_destination-dis_source)>=20){
 
-                        candidateTranslocations.add(new SV_CandidateTranslocation(Potential_Trans_Inters.source_contig,Potential_Trans_Inters.source_start,Potential_Trans_Inters.source_end,Potential_Trans_Inters.dest_contig,Potential_Trans_Inters.dest_start,Potential_Trans_Inters.dest_end,Potential_Trans_Inters.score));
+                        candidateTranslocations.add(new SV_CandidateTranslocation(Potential_Trans_Inters.source_contig,Potential_Trans_Inters.source_start,Potential_Trans_Inters.source_end,Potential_Trans_Inters.dest_contig,Potential_Trans_Inters.dest_start,Potential_Trans_Inters.dest_end,Potential_Trans_Inters.score,"BREP"));
 
                     }
                     else {
@@ -327,7 +327,7 @@ public class T_I_C_SVClusters_Distinguish {
 
                     if((dis_detination-dis_source)>=20){
 
-                        candidateTranslocations.add(new SV_CandidateTranslocation(Potential_Trans_Inters.source_contig,Potential_Trans_Inters.source_start,Potential_Trans_Inters.source_end,Potential_Trans_Inters.dest_contig,Potential_Trans_Inters.dest_start,Potential_Trans_Inters.dest_end,Potential_Trans_Inters.score));
+                        candidateTranslocations.add(new SV_CandidateTranslocation(Potential_Trans_Inters.source_contig,Potential_Trans_Inters.source_start,Potential_Trans_Inters.source_end,Potential_Trans_Inters.dest_contig,Potential_Trans_Inters.dest_start,Potential_Trans_Inters.dest_end,Potential_Trans_Inters.score,"BREP"));
 
                     }
                     else{
