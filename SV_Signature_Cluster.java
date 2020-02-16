@@ -20,7 +20,7 @@ public class SV_Signature_Cluster {
         }
 
         double confidence_level_weight=ave_confidence_level/Global.per_base_best_score;
-        confidence_level_score =15+35*confidence_level_weight+35*cluster_size_weight;
+        confidence_level_score =40*confidence_level_weight+40*cluster_size_weight;
 
         if(cluster_size==1){
 
@@ -117,7 +117,7 @@ public class SV_Signature_Cluster {
         }
         double confidence_level_score;
         double confidence_level_weight=ave_confidence_level/Global.per_base_best_score;
-        confidence_level_score=20*confidence_level_weight+60*(cluster_size_weight);
+        confidence_level_score=40*confidence_level_weight+40*cluster_size_weight;
         return confidence_level_score+span_deviation_score*10+pos_deviation_score*10;
 
     }
@@ -125,22 +125,11 @@ public class SV_Signature_Cluster {
     public static List cluster_sv_signature(Parameter_Setting Parameter_Setting) throws FileNotFoundException {
 
         List clusters=new LinkedList();
-//                File translocation =new File("C:\\java\\NA12878_11x\\test.csv");
-//
-//        PrintStream outputdeletion = new PrintStream(new FileOutputStream(translocation));
-//
-//        for(int i=0;i<Global.deletion_signatures.size();i++){
-//
-//            outputdeletion.println(Global.deletion_signatures.get(i).contig+'\t'+Global.deletion_signatures.get(i).start_position_on_ref+'\t'+Global.deletion_signatures.get(i).end_position_on_ref+"\t"+Global.deletion_signatures.get(i).signature+"\t"+Global.deletion_signatures.get(i).read);
-//
-//        }
         clusters.add(deletion_partition_and_cluster_unilocal(Global.deletion_signatures, Parameter_Setting));
         clusters.add(insertion_partition_and_cluster_unilocal(Global.insertion_signatures, Parameter_Setting));
         clusters.add(inversion_partition_and_cluster_unilocal(Global.inversion_signatures, Parameter_Setting));
         clusters.add(tandem_duplication_partition_and_cluster_bilocal(Global.duplication_tandem_signatures, Parameter_Setting));
         clusters.add(potential_interspersed_trans_partition_and_cluster_bilocal(Global.Potential_Trans_Inters_signatures, Parameter_Setting));
-//        clusters.add(translocation_partition_and_cluster_bilocal(Global.translocationsignatures, Parameter_Setting));
-
         return clusters;
     }
 
@@ -161,25 +150,6 @@ public class SV_Signature_Cluster {
 
         }
 
-//        int sort_deletion_consolidate_clusters_unilocal_size=sort_deletion_consolidate_clusters_unilocal.size();
-//
-//        for(int n=0;n<sort_deletion_consolidate_clusters_unilocal_size;n++){
-//
-//            SignatureClusterUniLocal Deletion=sort_deletion_consolidate_clusters_unilocal.get(n);
-//            candidateDeletions.add(new SV_CandidateDeletion(Deletion.contig,Deletion.start_position_on_ref,Deletion.end_position_on_ref,Deletion.score,Deletion.ave_span));
-//
-//
-//        }
-
-//                File translocation =new File("C:\\java\\NA12878_11x\\test.csv");
-//
-//        PrintStream outputdeletion = new PrintStream(new FileOutputStream(translocation));
-//
-//        for(int i=0;i<sort_deletion_consolidate_clusters_unilocal.size();i++){
-//
-//            outputdeletion.println(sort_deletion_consolidate_clusters_unilocal.get(i).contig+'\t'+sort_deletion_consolidate_clusters_unilocal.get(i).start_position_on_ref+'\t'+sort_deletion_consolidate_clusters_unilocal.get(i).end_position_on_ref);
-//
-//        }
         return sort_deletion_consolidate_clusters_unilocal;
 
     }
@@ -430,7 +400,7 @@ public class SV_Signature_Cluster {
 
                         score=calculate_score(cluster_size,std_span,std_pos,average_end-average_start,average_confidence_level,options.support_read_num);
 
-                        if(score>=options.min_SV_cluster_score){
+                        if(score>=options.min_SV_cluster_score&&(average_end-average_start)<150000){
 
                             consolidated_cluters.add(new SignatureClusterUniLocal(signatureDeletion.getSourceContig(),(int)(Math.round(average_start)),(int)(Math.round(average_end)),score,cluster.size(),cluster,signatureDeletion.getType(),std_span,std_pos,ave_span));
 
@@ -463,15 +433,6 @@ public class SV_Signature_Cluster {
             }
 
         }
-
-//        int sort_insertion_consolidate_clusters_unilocal_size=sort_insertion_consolidate_clusters_unilocal.size();
-//
-//        for(int n=0;n<sort_insertion_consolidate_clusters_unilocal_size;n++){
-//
-//            SignatureClusterUniLocal Insertion=sort_insertion_consolidate_clusters_unilocal.get(n);
-//            candidateInsertions.add(new SV_CandidateInsertion(Insertion.contig,Insertion.start_position_on_ref,Insertion.end_position_on_ref,Insertion.score,Insertion.ave_span));
-//
-//        }
 
         return sort_insertion_consolidate_clusters_unilocal;
     }
@@ -752,15 +713,6 @@ public class SV_Signature_Cluster {
             }
 
         }
-
-//        int sort_inversion_consolidate_clusters_unilocal_size=sort_inversion_consolidate_clusters_unilocal.size();
-//
-//        for(int n=0;n<sort_inversion_consolidate_clusters_unilocal_size;n++){
-//
-//            SignatureClusterUniLocal Inversion=sort_inversion_consolidate_clusters_unilocal.get(n);
-//            candidateInversions.add(new SV_CandidateInversion(Inversion.contig,Inversion.start_position_on_ref,Inversion.end_position_on_ref,Inversion.score));
-//
-//        }
 
         return sort_inversion_consolidate_clusters_unilocal;
 
@@ -1044,16 +996,6 @@ public class SV_Signature_Cluster {
 
         }
 
-//        int sort_duplication_tandem_consolidate_clusters_bilocal_size=sort_duplication_tandem_consolidate_clusters_bilocal.size();
-//
-//        for(int n=0;n<sort_duplication_tandem_consolidate_clusters_bilocal_size;n++){
-//
-//            SignatureClusterBilocal tandem_duplication=sort_duplication_tandem_consolidate_clusters_bilocal.get(n);
-//            int copies=(int)(Math.round((double)(tandem_duplication.getDestinationEnd()-tandem_duplication.getDestinationStart())/(tandem_duplication.getSourceEnd()-tandem_duplication.getSourceStart())));
-//            candidateDuplicationTandems.add(new SV_CandidateDuplicationTandem(tandem_duplication.source_contig,tandem_duplication.source_start,tandem_duplication.source_end,copies,tandem_duplication.score));
-//
-//        }
-
         return sort_duplication_tandem_consolidate_clusters_bilocal;
 
     }
@@ -1317,7 +1259,7 @@ public class SV_Signature_Cluster {
 
                     score=calculate_score(cluster_size, source_std_span,source_std_pos,source_average_end-source_average_start,average_confidence_level, options.support_read_num);
 
-                    if(score>options.min_SV_cluster_score){
+                    if(score>options.min_SV_cluster_score&&max_copies>1){
 
                         consolidated_cluters.add(new SignatureClusterBilocal(SignatureDuplicationTandem.getSourceContig(),(int)(Math.round(source_average_start)),(int)(Math.round(source_average_end)),SignatureDuplicationTandem.getSourceContig(),(int)(Math.round(source_average_end)),(int)(Math.round(source_average_end))+max_copies*((int)(Math.round(source_average_end))-(int)(Math.round(source_average_start))),score,cluster.size(),cluster,SignatureDuplicationTandem.getType(),source_std_span,source_std_pos));
 
@@ -1349,23 +1291,6 @@ public class SV_Signature_Cluster {
             }
 
         }
-//        int sort_interspersedduplication_consolidate_clusters_bilocal_size=sort_interspersedduplication_consolidate_clusters_bilocal.size();
-//        for(int n=0;n<sort_interspersedduplication_consolidate_clusters_bilocal_size;n++){
-//
-//            SignatureClusterBilocal DuplicationInterspersed=sort_interspersedduplication_consolidate_clusters_bilocal.get(n);
-//
-//            if(DuplicationInterspersed.type.equals("cut&paste")){
-//
-//                candidateInterspersedDuplications.add(new SV_CandidateInterspersedDuplication(DuplicationInterspersed.source_contig,DuplicationInterspersed.source_start,DuplicationInterspersed.source_end,DuplicationInterspersed.dest_contig,DuplicationInterspersed.dest_start,DuplicationInterspersed.dest_end,DuplicationInterspersed.score,true));
-//
-//            }
-//            else if(DuplicationInterspersed.type.equals("ins_dup")){
-//
-//                candidateInterspersedDuplications.add(new SV_CandidateInterspersedDuplication(DuplicationInterspersed.source_contig,DuplicationInterspersed.source_start,DuplicationInterspersed.source_end,DuplicationInterspersed.dest_contig,DuplicationInterspersed.dest_start,DuplicationInterspersed.dest_end,DuplicationInterspersed.score,false));
-//
-//            }
-//
-//        }
 
         return sort_interspersedduplication_consolidate_clusters_bilocal;
 

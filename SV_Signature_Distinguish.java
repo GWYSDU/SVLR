@@ -60,7 +60,6 @@ public class SV_Signature_Distinguish{
         List<ArrayList> tandem_duplications=new LinkedList<>();
         List<ArrayList> potentialinsertions=new LinkedList <>();
         List<ArrayList> potentialdeletions=new LinkedList <>();
-//        List<ArrayList> potentialshiftsbreakpoint=new LinkedList <>();
         List<ArrayList>potentialtranslocationsbreakpoint=new LinkedList <>();
         boolean is_used=false;
         if(parse_mapped_data!=null){
@@ -103,8 +102,6 @@ public class SV_Signature_Distinguish{
                                 potentialdeletion.add("fwd");
                                 potentialdeletion.add(((double)parseMappedData.getScore())/parseMappedData.getReadAlignLen());
                                 potentialdeletions.add(potentialdeletion);
-//                                Global.deletion_signatures.add(new SignatureDeletion(parseMappedData.getRef(),parseMappedData.getRefStartC()+RefAlignLen,parseMappedData.getRefStartC()+RefAlignLen+gaplength,"cigar","fwd",parseMappedData.getRead(),parseMappedData.getScore()/parseMappedData.getReadLen(),gaplength));
-
 
                             }
 
@@ -198,16 +195,6 @@ public class SV_Signature_Distinguish{
                                                 potentialinsertion.add("fwd");
                                                 potentialinsertion.add(confidence_level);
                                                 potentialinsertions.add(potentialinsertion);
-//                                                ArrayList potentialshiftbreakpoint=new ArrayList();
-//                                                potentialshiftbreakpoint.add("fwd");
-//                                                potentialshiftbreakpoint.add(ref_chr);
-//                                                potentialshiftbreakpoint.add(alignment_current.getRefEndC());
-//                                                potentialshiftbreakpoint.add(alignment_next.getRefStartC());
-//                                                potentialshiftbreakpoint.add(deviation);
-//                                                potentialshiftbreakpoint.add(alignment_current.getReadStartC());
-//                                                potentialshiftbreakpoint.add(is_used);
-//                                                potentialshiftbreakpoint.add("ins");
-//                                                potentialshiftsbreakpoint.add(potentialshiftbreakpoint);
 
                                             }
                                             else{
@@ -221,16 +208,6 @@ public class SV_Signature_Distinguish{
                                                 potentialinsertion.add("rev");
                                                 potentialinsertion.add(confidence_level);
                                                 potentialinsertions.add(potentialinsertion);
-//                                                ArrayList potentialshiftbreakpoint=new ArrayList();
-//                                                potentialshiftbreakpoint.add("rev");
-//                                                potentialshiftbreakpoint.add(ref_chr);
-//                                                potentialshiftbreakpoint.add(alignment_next.getRefEndC());
-//                                                potentialshiftbreakpoint.add(alignment_next.getRefStartC());
-//                                                potentialshiftbreakpoint.add(deviation);
-//                                                potentialshiftbreakpoint.add(alignment_current.getRefStartC());
-//                                                potentialshiftbreakpoint.add(is_used);
-//                                                potentialshiftbreakpoint.add("ins");
-//                                                potentialshiftsbreakpoint.add(potentialshiftbreakpoint);
 
                                             }
 
@@ -252,16 +229,7 @@ public class SV_Signature_Distinguish{
                                                 potentialdeletion.add("fwd");
                                                 potentialdeletion.add(confidence_level);
                                                 potentialdeletions.add(potentialdeletion);
-//                                                ArrayList potentialshiftbreakpoint=new ArrayList();
-//                                                potentialshiftbreakpoint.add("fwd");
-//                                                potentialshiftbreakpoint.add(ref_chr);
-//                                                potentialshiftbreakpoint.add(alignment_current.getRefEndC());
-//                                                potentialshiftbreakpoint.add(alignment_next.getRefStartC());
-//                                                potentialshiftbreakpoint.add(-deviation);
-//                                                potentialshiftbreakpoint.add(alignment_current.getReadStartC());
-//                                                potentialshiftbreakpoint.add(is_used);
-//                                                potentialshiftbreakpoint.add("del");
-//                                                potentialshiftsbreakpoint.add(potentialshiftbreakpoint);
+
                                                 ArrayList potentialtranslocationbreakpoint=new ArrayList();
                                                 potentialtranslocationbreakpoint.add("fwd");
                                                 potentialtranslocationbreakpoint.add("fwd");
@@ -290,16 +258,7 @@ public class SV_Signature_Distinguish{
                                                 potentialdeletion.add("rev");
                                                 potentialdeletion.add(confidence_level);
                                                 potentialdeletions.add(potentialdeletion);
-//                                                ArrayList potentialshiftbreakpoint=new ArrayList();
-//                                                potentialshiftbreakpoint.add("rev");
-//                                                potentialshiftbreakpoint.add(ref_chr);
-//                                                potentialshiftbreakpoint.add(alignment_next.getRefEndC());
-//                                                potentialshiftbreakpoint.add(alignment_next.getRefStartC());
-//                                                potentialshiftbreakpoint.add(-deviation);
-//                                                potentialshiftbreakpoint.add(alignment_current.getRefStartC());
-//                                                potentialshiftbreakpoint.add(is_used);
-//                                                potentialshiftbreakpoint.add("del");
-//                                                potentialshiftsbreakpoint.add(potentialshiftbreakpoint);
+
                                                 ArrayList potentialtranslocationbreakpoint=new ArrayList();
                                                 potentialtranslocationbreakpoint.add("rev");
                                                 potentialtranslocationbreakpoint.add("rev");
@@ -717,117 +676,6 @@ public class SV_Signature_Distinguish{
                     Global.duplication_tandem_signatures.add(new SignatureDuplicationTandem(current_chromosome,(long)mean(current_starts),(long)mean(current_ends),currrent_copy_number,"suppl",read_name,(double)average(current_confidence_level)));
 
                 }
-
-//                if(potentialshiftsbreakpoint!=null){
-//
-//                    Collections.sort(potentialshiftsbreakpoint,new potentialshiftsbreakpointreadCOrder());
-//                    int potentialshiftsbreakpoint_size=potentialshiftsbreakpoint.size();
-//
-//                    for(int n=0;n<potentialshiftsbreakpoint_size-1;n++){
-//
-//                        ArrayList potentialshiftsbreakpoint_current=potentialshiftsbreakpoint.get(n);
-//                        String dir_current=(String) potentialshiftsbreakpoint_current.get(0);
-//                        String chr_current=(String) potentialshiftsbreakpoint_current.get(1);
-//                        long start_current=(long) potentialshiftsbreakpoint_current.get(2);
-//                        long end_current=(long) potentialshiftsbreakpoint_current.get(3);
-//                        long span_current=(long)potentialshiftsbreakpoint_current.get(4);
-//                        String type_current=(String) potentialshiftsbreakpoint_current.get(7);
-//
-//                        ArrayList potentialshiftsbreakpoint_next=potentialshiftsbreakpoint.get(n+1);
-//                        String dir_next=(String) potentialshiftsbreakpoint_next.get(0);
-//                        String chr_next=(String) potentialshiftsbreakpoint_next.get(1);
-//                        long start_next=(long) potentialshiftsbreakpoint_next.get(2);
-//                        long end_next=(long) potentialshiftsbreakpoint_next.get(3);
-//                        long span_next=(long)potentialshiftsbreakpoint_next.get(4);
-//                        String type_next=(String) potentialshiftsbreakpoint_next.get(7);
-//
-//                        if(type_current.equals("del")&&type_next.equals("ins")&&Math.abs(span_current)==Math.abs(span_next)){
-//
-//                            if(dir_current.equals("fwd")){
-//
-//                                Global.interspersedduplicationsignatures.add(new SignatureInterspersedDuplication(chr_current,end_current,start_next,chr_current,end_current-Math.abs(span_current),start_next-Math.abs(span_current),"suppl","cut&paste",confidence_level));
-//                                potentialshiftsbreakpoint.get(n).set(6,true);
-//                                potentialshiftsbreakpoint.get(n+1).set(6,true);
-//
-//                            }
-//                            else if(dir_current.equals("rev")){
-//
-//                                Global.interspersedduplicationsignatures.add(new SignatureInterspersedDuplication(chr_current,end_next,start_current,chr_current,end_next+Math.abs(span_current),start_current+Math.abs(span_current),"suppl","cut&paste",confidence_level));
-//                                potentialshiftsbreakpoint.get(n).set(6,true);
-//                                potentialshiftsbreakpoint.get(n+1).set(6,true);
-//
-//                            }
-//
-//                        }
-//                        else if(type_current.equals("ins")&&type_next.equals("del")&&Math.abs(span_current)==Math.abs(span_next)){
-//
-//                            if(dir_current.equals("fwd")){
-//
-//                                Global.interspersedduplicationsignatures.add(new SignatureInterspersedDuplication(chr_current,end_current,start_next,chr_current,end_current+Math.abs(span_current),start_next+Math.abs(span_current),"suppl","cut&paste",confidence_level));
-//                                potentialshiftsbreakpoint.get(n).set(6,true);
-//                                potentialshiftsbreakpoint.get(n+1).set(6,true);
-//
-//                            }
-//                            else if(dir_current.equals("rev")){
-//
-//                                Global.interspersedduplicationsignatures.add(new SignatureInterspersedDuplication(chr_current,end_next,start_current,chr_current,end_next-Math.abs(span_current),start_current-Math.abs(span_current),"suppl","cut&paste",confidence_level));
-//                                potentialshiftsbreakpoint.get(n).set(6,true);
-//                                potentialshiftsbreakpoint.get(n+1).set(6,true);
-//
-//                            }
-//
-//                        }
-//
-//                    }
-//
-//                    for(int i=0;i<potentialshiftsbreakpoint_size;i++){
-//
-//                        ArrayList potentialshiftbreakpoint =potentialshiftsbreakpoint.get(i);
-//
-//                        if(potentialshiftbreakpoint.get(7).equals("del")&&potentialdeletions!=null){
-//
-//                            if((boolean)potentialshiftbreakpoint.get(6)){
-//
-//                                for(int j=0;j<potentialdeletions.size();j++){
-//
-//                                    ArrayList potentialdeletion=potentialdeletions.get(j);
-//
-//                                    if(potentialshiftbreakpoint.get(1).equals(potentialdeletion.get(0))&&(long)potentialshiftbreakpoint.get(2)==(long)potentialdeletion.get(1)&&(long)potentialshiftbreakpoint.get(3)==(long)potentialdeletion.get(2)) {
-//
-//                                        potentialdeletions.remove(j);
-//                                        j--;
-//
-//                                    }
-//
-//                                }
-//
-//                            }
-//
-//                        }
-//                        else if(potentialshiftbreakpoint.get(7).equals("ins")&&potentialinsertions!=null){
-//
-//                            if((boolean)potentialshiftbreakpoint.get(6)){
-//
-//                                for(int j=0;j<potentialinsertions.size();j++){
-//
-//                                    ArrayList potentialinsertion=potentialinsertions.get(j);
-//
-//                                    if(potentialshiftbreakpoint.get(1).equals(potentialinsertion.get(0))&&(long)potentialshiftbreakpoint.get(2)==(long)potentialinsertion.get(1)&&(long)potentialshiftbreakpoint.get(3)==(long)potentialinsertion.get(2)) {
-//
-//                                        potentialinsertions.remove(j);
-//                                        j--;
-//
-//                                    }
-//
-//                                }
-//
-//                            }
-//
-//                        }
-//
-//                    }
-//
-//                }
 
                 if(potentialtranslocationsbreakpoint!=null){
 

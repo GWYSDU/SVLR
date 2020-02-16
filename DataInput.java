@@ -27,19 +27,6 @@ class parse_mapped_data implements Serializable {
     private String ReadSeq;
     private double Identity;
     private String CIGAR;
-//    private double confidence_level=0;
-//
-//    public void setConfidence_level(double confidence_level) {
-//
-//        this.confidence_level = confidence_level;
-//
-//    }
-//
-//    public double getConfidence_level() {
-//
-//        return confidence_level;
-//
-//    }
 
     public void setCIGAR(String CIGAR) {
 
@@ -232,9 +219,8 @@ public class DataInput {
         Global.TranslocationBreakpoint_signatures=new LinkedList <>();
         Global.Potential_Trans_Inters_signatures=new LinkedList <>();
         Parameter_Setting Parameter_Setting=new Parameter_Setting();
-//        Scanner datainput=new Scanner(System.in);
-        long startTime = System.currentTimeMillis();
-        String path=args[0];
+        Scanner datainput=new Scanner(System.in);
+        String path=datainput.next();
         String path_split[]=path.split("\\.");
         String path_format=path_split[path_split.length-1];
         if(path_format.equals("maf")){
@@ -248,8 +234,6 @@ public class DataInput {
 
         }
         SV_Candidate_Filter.filter_sv_candidate(T_I_C_SVClusters_Distinguish.parse_Potential_Trans_Inters_clusters(SV_Signature_Cluster.cluster_sv_signature(Parameter_Setting),Parameter_Setting),path_split[0]);
-        long endTime = System.currentTimeMillis();
-        System.out.println("程序运行时间：" + (endTime - startTime) + "ms");
 
     }
 
@@ -282,7 +266,6 @@ public class DataInput {
 
         }
         long base_best_score_sum=0;
-//        int j=0;
         int count = 1;
         int index=0;
 
@@ -440,7 +423,6 @@ public class DataInput {
                     AlignData[index].setReadStrand("+");
                     AlignData[index].setReadStartC(AlignData[index].getReadLen()-1-AlignData[index].getReadEndC());
                     AlignData[index].setReadEndC(AlignData[index].getReadStartC()+AlignData[index].getReadAlignLen()-1);
-//                    AlignData.setReadSeq(new StringBuffer(AlignData.getReadSeq()).reverse().toString().replaceAll("A","B").replaceAll("T","A").replaceAll("B","T").replaceAll("C","B").replaceAll("G","C").replaceAll("B","G"));
 
                 }
 
@@ -461,22 +443,9 @@ public class DataInput {
                             }
 
                             Collections.sort(currentReadStore, new CorOrder());
-//                            getCandidatemetrics result=getCandidatemetrics.getCandidatemetrics(currentReadStore);
-//                            int currentReadStore_size=currentReadStore.size();
-//                            double per_base_score=result.getPer_base_score();
-//
-//                            for(int m=0;m<currentReadStore_size;m++){
-//
-//                                currentReadStore.get(m).setConfidence_level(per_base_score);
-//
-//                            }
-
                             SV_Signature_Distinguish.analyze_read_segments(currentReadStore, Parameter_Setting);
-//                            System.out.println("第"+String.valueOf(j++)+"条read处理完毕");
                             currentRead=AlignData[index].getRead();
                             currentReadStore=new LinkedList <>();
-//                            AlignData[0]=AlignData[index];
-//                            AlignData[0] = new parse_mapped_data(AlignData[index]);
                             copy(AlignData[0],AlignData[index]);
                             index=0;
 
@@ -516,18 +485,7 @@ public class DataInput {
             }
 
             Collections.sort(currentReadStore, new CorOrder());
-//            getCandidatemetrics result=getCandidatemetrics.getCandidatemetrics(currentReadStore);
-//            int currentReadStore_size=currentReadStore.size();
-//            double per_base_score=result.getPer_base_score();
-//
-//            for(int m=0;m<currentReadStore_size;m++){
-//
-//                currentReadStore.get(m).setConfidence_level(per_base_score);
-//
-//            }
-
             SV_Signature_Distinguish.analyze_read_segments(currentReadStore, Parameter_Setting);
-//            System.out.println("第"+String.valueOf(j++)+"条read处理完毕");
 
         }
 
@@ -565,7 +523,6 @@ public class DataInput {
         long            refendc;
         long            readendc;
         parse_mapped_data AlignData;
-        int j=0;
 
         while((SAMAlignline = SAMbufferedReader.readLine()) != null){
 
@@ -669,7 +626,6 @@ public class DataInput {
                     AlignData.setReadStrand("+");
                     AlignData.setReadStartC(AlignData.getReadLen()-1-AlignData.getReadEndC());
                     AlignData.setReadEndC(AlignData.getReadStartC()+AlignData.getReadAlignLen()-1);
-//                    AlignData.setReadSeq(new StringBuffer(AlignData.getReadSeq()).reverse().toString().replaceAll("A","B").replaceAll("T","A").replaceAll("B","T").replaceAll("C","B").replaceAll("G","C").replaceAll("B","G"));
 
                 }
 
@@ -685,18 +641,7 @@ public class DataInput {
                         }
 
                         Collections.sort(currentReadStore, new CorOrder());
-//                        getCandidatemetrics result=getCandidatemetrics.getCandidatemetrics(currentReadStore);
-//                        int currentReadStore_size=currentReadStore.size();
-//                        double per_base_score=result.getPer_base_score();
-//
-//                        for(int m=0;m<currentReadStore_size;m++){
-//
-//                            currentReadStore.get(m).setConfidence_level(per_base_score);
-//
-//                        }
-
                         SV_Signature_Distinguish.analyze_read_segments(currentReadStore, Parameter_Setting);
-                        System.out.println("第"+String.valueOf(j++)+"条read处理完毕");
                         currentRead=AlignData.getRead();
                         currentReadStore=new LinkedList <>();
 
@@ -732,18 +677,7 @@ public class DataInput {
             }
 
             Collections.sort(currentReadStore, new CorOrder());
-//            getCandidatemetrics result=getCandidatemetrics.getCandidatemetrics(currentReadStore);
-//            int currentReadStore_size=currentReadStore.size();
-//            double per_base_score=result.getPer_base_score();
-//
-//            for(int m=0;m<currentReadStore_size;m++){
-//
-//                currentReadStore.get(m).setConfidence_level(per_base_score);
-//
-//            }
-
             SV_Signature_Distinguish.analyze_read_segments(currentReadStore, Parameter_Setting);
-            System.out.println("第"+String.valueOf(j++)+"条read处理完毕");
 
         }
 

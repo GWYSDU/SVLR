@@ -1,6 +1,6 @@
 public class Parameter_Setting {
 
-    int support_read_num=10;
+    int support_read_num=10;//user-defined:The number of reads supporting to an SV.
     int min_sv_size=40;
     int max_sv_size=100000;
     int segment_gap_tolerance=10;
@@ -13,7 +13,7 @@ public class Parameter_Setting {
     int trans_partition_max_distance=200;
     int trans_sv_max_distance=500;
     String distance_metrics="sl";
-    double min_SV_cluster_score=20;
+    double min_SV_cluster_score=0;//user-defined:The minimal score of clusters to be reminded.
 
     public Parameter_Setting(){
 
